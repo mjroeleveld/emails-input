@@ -13,12 +13,14 @@ class InputValue {
   /**
    * String value.
    * @type {string}
+   * @private
    */
   _value = '';
 
   /**
    * Flag indicating if the value is a valid email address.
    * @type {Boolean}
+   * @private
    */
   _valid;
 

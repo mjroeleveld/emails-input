@@ -12,18 +12,21 @@ class EmailsInput {
   /**
    * Input container HTML element.
    * @type {HTMLElement}
+   * @private
    */
   _elem = null;
 
   /**
    * Subscribed listeners.
    * @type {function[]}
+   * @private
    */
   _listeners = [];
 
   /**
    * Input values.
    * @type {InputValue[]}
+   * @private
    */
   _values = [];
 
@@ -49,7 +52,7 @@ class EmailsInput {
   }
 
   /**
-   * Helper that returns the string value representation of the values.
+   * Return the string value representation of the values.
    * @returns {String[]}
    * @private
    */
@@ -58,7 +61,7 @@ class EmailsInput {
   }
 
   /**
-   * Reference to values container DOM element.
+   * Return reference to values container DOM element.
    * @returns {HTMLElement}
    * @private
    */
@@ -67,7 +70,7 @@ class EmailsInput {
   }
 
   /**
-   * Reference to input DOM element.
+   * Return reference to input DOM element.
    * @returns {HTMLElement}
    * @private
    */
@@ -157,8 +160,6 @@ class EmailsInput {
    * (Re)initialize EmailsInput instance. Renders an empty form.
    */
   init() {
-    this.reset();
-
     this._elem.classList.add('EmailsInput');
     this._elem.innerHTML = `<div class="EmailsInput-values"></div>`;
     this._createInput();
@@ -173,7 +174,7 @@ class EmailsInput {
     this._values = [];
     this._listeners = [];
     // Reset DOM elements
-    this._elem.innerHTML = `<div class="EmailsInput-values"></div>`;
+    this.init();
   }
 
   /**

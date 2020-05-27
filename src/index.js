@@ -1,7 +1,7 @@
+// I could have chosen to generate two separate CSS files from this but opted
+// not to for simplicity and since the added overhead from the theme CSS is
+// neglectible
 import './base.scss';
-
-// I could have generated a separate .css file, but I have chosen not to for the
-// sake of simplicity
 import './theme.scss';
 
 import EmailsInput from './EmailsInput';

@@ -2,25 +2,52 @@
 
 VanillaJS emails input component.
 
-## Install
 
-`npm install <url>`
+## Getting started
+
+Download `dist/emails-input.js`, `dist/emails-input.css` and import the files into your project.
+	
+	
+## Styles
+
+Add `EmailsInput-themed` class to the container element to apply theme styles. When omitted, only base styles are 
+applied for full styling flexibility. 
+
 	
 ## Example
 
-Find an example in `dist/index.html`.
+[Live Example](https://joachimroeleveld.github.io/emails-input/)
+
 
 ## Basic usage
 
 ```html
-<div id="emails-input" class="EmailsInput-themed"></div>
-<script src="emails-input.js"></script>
-<script>
-  var inputContainerNode = document.querySelector('#emails-input');
-  var emailsInput = EmailsInput(inputContainerNode, { 
-    // Options
-  });
-</script>
+<html>
+    <head>
+        <!-- Import styles -->
+        <link href="emails-input.css" rel="stylesheet" />
+    </head>
+    <style>
+        /* Specify dimensions of container element */
+        .emails {
+            width: 30em;
+            heigth: 10em;
+        }           
+    </style>
+    <body>
+        <!-- Container component with theme styles applied -->
+        <div class="emails EmailsInput-themed" id="emails-input"></div>
+        <!-- Import script -->
+        <script src="emails-input.js"></script>
+        <!-- Initialize -->
+        <script>
+          var container = document.querySelector('#emails-input');
+          var emailsInput = EmailsInput(container, { 
+            // Options
+          });
+        </script>
+    </body>
+</html>
 ```
 
 ## API
@@ -131,16 +158,9 @@ Reset EmailsInput instance.
 Unsubscribes listeners and clears values.
 
 
-## Styling
-
-Add/remove the class `.EmailsInput-themed` on the container element to toggle the theme. With the theme disabled no cosmetic styles will be applied.
-
-See `src/theme.scss` for an idea which classes to use.
-
-
 ## Contributing
 
-This plugin is developed with **Webpack 4** and **Babel 7**.
+This plugin is developed with Webpack 4 and Babel 7.
 
 - Run dev server: `npm run start`
 - Build: `npm run build`

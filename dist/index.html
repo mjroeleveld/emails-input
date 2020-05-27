@@ -7,22 +7,60 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
-            .form {
-
+            body {
+                font-family: 'Open Sans', sans-serif;
+                height: 100%;
+                font-size: 14px;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             h1 {
-
+                font-weight: 400;
+                font-size: 1.4em;
+                margin-bottom: 1em;
             }
-            button {
-
+            .form {
+                margin: 0 auto;
+                width: 39em;
+                background: #F8F8F7;
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .top {
+                padding: 2em 3.5em;
+            }
+            .emails {
+                width: 100%;
+                height: 7em;
+                background: #eee;
+            }
+            .buttons {
+                background: #fff;
+                padding: 2em 3.5em;
+            }
+            .buttons button {
+                font-size: inherit;
+                border: none;
+                background: #4262FF;
+                border-radius: 6px;
+                padding: 0.7em 1em;
+                color: #fff;
+            }
+            .buttons button:first-child {
+                margin-right: 1em;
             }
         </style>
-    </head>
+    <link href="./emails-input.css" rel="stylesheet"></head>
     <body>
         <div class="form">
-            <h1>Share <strong>Board name</strong> with others</h1>
-            <div class="emails">
-                <div class="EmailsInput-themed" id="emails-input"></div>
+            <div class="top">
+                <h1>Share <strong>Board name</strong> with others</h1>
+                <div class="emails">
+                    <div id="emails-input" class="EmailsInput-themed"></div>
+                </div>
             </div>
             <div class="buttons">
                 <button id="add" class="button">Add email</button>
@@ -34,24 +72,22 @@
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize input
                 var inputContainerNode = document.querySelector('#emails-input');
-                var emailsInput = EmailsInput(inputContainerNode, {
-                  rows: 4,
-                });
+                var emailsInput = EmailsInput(inputContainerNode);
 
                 // Add button
                 var addButtonNode = document.querySelector('#add');
                 addButtonNode.addEventListener('click', function() {
                   var randomName = Math.random().toString(36).substring(7);
-                  emailsInput.add(randomName + '@gmail.com');
+                  emailsInput.addValue(randomName + '@gmail.com');
                 });
 
                 // Count button
                 var getCountNode = document.querySelector('#get-count');
                 getCountNode.addEventListener('click', function() {
-                  var validValues = emailsInput.getValid();
+                  var validValues = emailsInput.getValidValues();
                   alert('Number of valid values: ' + validValues.length);
                 });
             });
         </script>
-    <script type="text/javascript" src="./index.js"></script></body>
+    <script type="text/javascript" src="./emails-input.js"></script></body>
 </html>

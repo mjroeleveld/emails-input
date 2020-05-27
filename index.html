@@ -1,0 +1,58 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Emails Input</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            .form {
+
+            }
+            h1 {
+
+            }
+            button {
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="form">
+            <h1>Share <strong>Board name</strong> with others</h1>
+            <div class="input">
+                <div id="emails-input"></div>
+            </div>
+            <div class="buttons">
+                <button id="add" class="button">Add email</button>
+                <button id="get-count" class="button">Get emails count</button>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="dist/index.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize input
+                var inputContainerNode = document.querySelector('#emails-input');
+                var emailsInput = EmailsInput(inputContainerNode, {
+                  rows: 4,
+                });
+
+                // Add button
+                var addButtonNode = document.querySelector('#add');
+                addButtonNode.addEventListener('click', function() {
+                  var randomName = Math.random().toString(36).substring(7);
+                  emailsInput.add(randomName + '@gmail.com');
+                });
+
+                // Count button
+                var getCountNode = document.querySelector('#get-count');
+                getCountNode.addEventListener('click', function() {
+                  var validValues = emailsInput.getValid();
+                  alert('Number of valid values: ' + validValues.length);
+                });
+            });
+        </script>
+    <script type="text/javascript" src="./index.js"></script></body>
+</html>

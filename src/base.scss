@@ -1,0 +1,13 @@
+.EmailsInput {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  .EmailsInput-values {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .EmailsInput-Input {
+    flex-shrink: 0;
+  }
+}

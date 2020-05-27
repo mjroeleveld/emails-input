@@ -1,12 +1,14 @@
-import EmailsInput, { INIT_HTML } from './EmailsInput'
-import InputValue from './InputValue';
+import EmailsInput from './EmailsInput';
 
 // ######################################################################
 // I implemented only a bare minimum of tests (for illustrative purposes)
 // ######################################################################
 
+const createInputElem = () =>
+  new EmailsInput(document.createElement("div"));
+
 test("addValue()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     input.addValue("john@gmail.com");
     const values = input.getAllValues();
 
@@ -15,7 +17,7 @@ test("addValue()", () => {
 });
 
 test("getAllValues()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     input.addValue("john@gmail.com");
     input.addValue("invalid");
     const values = input.getAllValues();
@@ -28,7 +30,7 @@ test("getAllValues()", () => {
 });
 
 test("getValidValues()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     input.addValue("john@gmail.com");
     input.addValue("invalid");
     const values = input.getValidValues();
@@ -40,7 +42,7 @@ test("getValidValues()", () => {
 });
 
 test("replaceAllValues()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     input.addValue("john@gmail.com");
     input.addValue("invalid");
     input.replaceAllValues([
@@ -55,7 +57,7 @@ test("replaceAllValues()", () => {
 });
 
 test("subscribe()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     const listener = jest.fn();
     input.subscribe(listener);
     input.addValue("john@gmail.com");
@@ -65,7 +67,7 @@ test("subscribe()", () => {
 });
 
 test("unsubscribe()", () => {
-    const input = new EmailsInput({});
+    const input = createInputElem();
     const listener = jest.fn();
     input.subscribe(listener);
     input.unsubscribe(listener);
@@ -74,13 +76,13 @@ test("unsubscribe()", () => {
     expect(listener).toBeCalledTimes(0);
 });
 
-test("destroy()", () => {
-    const input = new EmailsInput({});
+test("reset()", () => {
+    const input = createInputElem();
     const listener = jest.fn();
     input.subscribe(listener);
     input.unsubscribe(listener);
     input.addValue("john@gmail.com");
-    input.destroy();
+    input.reset();
     const values = input.getAllValues();
 
     expect(values.length).toBe(0);

@@ -1,18 +1,55 @@
 class InputValue {
-  valid = true;
+  /**
+   * Email regex used for validation (from https://emailregex.com/).
+   * @type {RegExp}
+   */
+  static EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  constructor(value) {
-    this.value = value;
+  /**
+   * Holds reference to rendered DOM element once rendered.
+   */
+  elem = null;
 
-    this.validate();
+  /**
+   * String value.
+   * @type {string}
+   */
+  _value = '';
+
+  /**
+   * Flag indicating if the value is a valid email address.
+   * @type {Boolean}
+   */
+  _valid;
+
+  /**
+   * Callback to be called when the remove button is pressed.
+   * @type {Function}
+   * @private
+   */
+  _removeCallback = null;
+
+  /**
+   * Construct an input value.
+   * @param {String} value - Input value
+   * @param {Function} removeCallback - Remove callback
+   */
+  constructor(value, removeCallback) {
+    if (typeof value !== "string") {
+      throw new Error('InputValue() expects a string as argument');
+    }
+
+    this._value = value;
+    this._removeCallback = removeCallback;
+    this._valid = this.isValid();
   }
 
   /**
-   * Validate the input's value to be an email address.
+   * Check whether the input's value is a valid email address.
    * @returns {Boolean}
    */
-  validate() {
-
+  isValid() {
+    return !!this._value.match(InputValue.EMAIL_REGEX);
   }
 
   /**
@@ -20,15 +57,30 @@ class InputValue {
    * @returns {String}
    */
   toString() {
-    return this.value;
+    return this._value;
   }
 
   /**
    * Render the input value.
-   * @returns {String}
+   * @returns {HTMLElement}
    */
   render() {
+    if (this.elem) return this.elem;
 
+    // Create elem
+    const elem = this.elem = document.createElement('div');
+    elem.classList.add('EmailsInput-value');
+    if (!this._valid) elem.classList.add('EmailsInput-invalid');
+    elem.textContent = this._value;
+
+    // Add remove button
+    const button = document.createElement('button');
+    button.classList.add('EmailsInput-button');
+    button.textContent = 'x';
+    elem.append(button);
+    button.addEventListener('click', this._removeCallback.bind(this));
+
+    return elem;
   }
 }
 

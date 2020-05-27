@@ -1,37 +1,40 @@
 # emails-input
+
 VanillaJS emails input component.
 
-# Install
+## Install
+
 `npm install <url>`
 
-# Basic usage
+## Basic usage
+
 ```html
-<div id="emails-input"></div>
+<div id="emails-input" class="EmailsInput-themed"></div>
 <script src="emails-input.js"></script>
 <script>
   var inputContainerNode = document.querySelector('#emails-input');
-  var emailsInput = EmailsInput(inputContainerNode, { rows: 4 });
+  var emailsInput = EmailsInput(inputContainerNode, { 
+    // Options
+  });
 </script>
 ```
 
-# Configuration options
-```json
-{
-  "rows": 4 
-}
-```
+## API
 
-# API
 
-# Styling
 
-You can easily override the default styles using CSS. Refer to `src/styles.scss` for the class structure.
+## Styles / theme
 
-# Example
+Add/remove the class `.EmailsInput-themed` on the container element to toggle the theme. With the theme disabled no cosmetic styles will be applied.
 
-You can find an example in `dist/index.html`.
+See `src/theme.scss` for an idea which classes to use.
 
-# Contributing
+## Example
+
+Find an example in `dist/index.html`.
+
+## Contributing
+
 This plugin is developed with **Webpack 4** and **Babel 7**.
 
 - Run dev server: `npm run start`

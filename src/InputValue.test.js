@@ -7,14 +7,14 @@ import InputValue from './InputValue';
 describe("validate()", () => {
   test("valid address", () => {
     const input = new InputValue("john@doe.nl");
-    const valid = input.validate();
+    const valid = input.isValid();
 
     expect(valid).toBe(true);
   });
 
   test("invalid address", () => {
     const input = new InputValue("invalid.address");
-    const valid = input.validate();
+    const valid = input.isValid();
 
     expect(valid).toBe(false);
   });

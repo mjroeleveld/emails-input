@@ -1,0 +1,61 @@
+// I could have generated a separate .css file, but I have chosen not to for the
+// sake of simplicity
+
+.EmailsInput-themed {
+  background: #fff;
+  border: 1px solid #C3C2CF;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border 0.2s;
+  &:hover, &:focus {
+    border: 1px solid darken(#C3C2CF, 15%);
+  }
+  .EmailsInput-values {
+    padding: 0.25em;
+
+  }
+  .EmailsInput-input {
+    border: none;
+    font-size: inherit;
+    margin: 0.25em;
+    min-height: 1.8em;
+    &::placeholder {
+      color: #C3C2CF;
+    }
+  }
+  .EmailsInput-value {
+    background: rgba(102, 153, 255, 0.2);
+    padding: 0.2em 0.7em;
+    border-radius: 100px;
+    margin: 0.25em;
+    position: relative;
+    .EmailsInput-button {
+      // Inline SVG
+      background: url(
+        "data:image/svg+xml;utf8,<svg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M8 0.8L7.2 0L4 3.2L0.8 0L0 0.8L3.2 4L0 7.2L0.8 8L4 4.8L7.2 8L8 7.2L4.8 4L8 0.8Z' fill='%23050038'/></svg>"
+      ) no-repeat center center;
+      border: none;
+      width: 0.5em;
+      height: 100%;
+      position: relative;
+      left: 0.3em;
+      // Hide text 'x'
+      text-indent: -10em;
+      overflow: hidden;
+    }
+  }
+  .EmailsInput-invalid {
+    background: none;
+    padding-left: 0;
+    padding-right: 0;
+    &::after {
+      content: '';
+      display: block;
+      border-bottom: 1px dashed #D92929;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+}

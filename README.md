@@ -1,6 +1,13 @@
 # emails-input
 
-VanillaJS emails input component.
+![Demo GIF](https://s7.gifyu.com/images/ezgif.com-video-to-gif95b5c03e5103ea17.gif)
+
+Customizeable VanillaJS email input library. Creates a token on blur, <enter> and comma and supports pasting comma separated values.
+
+	
+## Example
+
+[Live Example](https://joachimroeleveld.github.io/emails-input/)
 
 
 ## Getting started
@@ -12,11 +19,6 @@ Download `dist/emails-input.js`, `dist/emails-input.css` and import the files in
 
 Add `EmailsInput-themed` class to the container element to apply theme styles. When omitted, only base styles are 
 applied for full styling flexibility. 
-
-	
-## Example
-
-[Live Example](https://joachimroeleveld.github.io/emails-input/)
 
 
 ## Basic usage

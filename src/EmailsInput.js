@@ -123,9 +123,8 @@ class EmailsInput {
    * @param {String[]} values - The new values
    */
   replaceAllValues(values) {
-    this.init();
+    this._values.forEach(val => this.removeValue(val));
     values.forEach(val => this.addValue(val));
-    this._notifyListeners();
   }
 
   /**
@@ -138,6 +137,7 @@ class EmailsInput {
     value.elem.parentNode.removeChild(value.elem);
 
     this._values = this._values.filter(val => val !== value);
+    this._notifyListeners();
   }
 
   /**
@@ -174,7 +174,7 @@ class EmailsInput {
     this._values = [];
     this._listeners = [];
     // Reset DOM elements
-    this.init();
+    this._elem.innerHTML = `<div class="EmailsInput-values"></div>`;
   }
 
   /**
@@ -203,7 +203,7 @@ class EmailsInput {
     };
 
     // Add value on <enter> or comma
-    elem.addEventListener('keyup', event => {
+    elem.addEventListener('keydown', event => {
       if (event.keyCode === 13 || event.keyCode === 188) {
         addInputValue();
       }

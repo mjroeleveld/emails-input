@@ -1,9 +1,5 @@
 import InputValue from './InputValue';
 
-// ######################################################################
-// I implemented only a bare minimum of tests (for illustrative purposes)
-// ######################################################################
-
 describe("validate()", () => {
   test("valid address", () => {
     const input = new InputValue("john@doe.nl");

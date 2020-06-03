@@ -1,9 +1,5 @@
 import EmailsInput from './EmailsInput';
 
-// ######################################################################
-// I implemented only a bare minimum of tests (for illustrative purposes)
-// ######################################################################
-
 const createInputElem = () =>
   new EmailsInput(document.createElement("div"));
 

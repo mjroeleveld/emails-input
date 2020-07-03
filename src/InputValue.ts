@@ -1,42 +1,35 @@
+import { InputValueRemoveCallback } from './types'
+
 class InputValue {
   /**
    * Email regex used for validation (from https://emailregex.com/).
-   * @type {RegExp}
    */
-  static EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  static EMAIL_REGEX: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   /**
    * Holds reference to rendered DOM element once rendered.
    */
-  elem = null;
+  elem: (HTMLElement | null) = null;
 
   /**
    * String value.
-   * @type {string}
-   * @private
    */
-  _value = '';
+  private readonly _value: string = '';
 
   /**
    * Flag indicating if the value is a valid email address.
-   * @type {Boolean}
-   * @private
    */
-  _valid;
+  private readonly _valid: boolean = false;
 
   /**
    * Callback to be called when the remove button is pressed.
-   * @type {Function}
-   * @private
    */
-  _removeCallback = null;
+  private _removeCallback: (InputValueRemoveCallback | null) = null;
 
   /**
    * Construct an input value.
-   * @param {String} value - Input value
-   * @param {Function} removeCallback - Remove callback
    */
-  constructor(value, removeCallback) {
+  constructor(value: string, removeCallback: InputValueRemoveCallback) {
     if (typeof value !== "string") {
       throw new Error('InputValue() expects a string as argument');
     }
@@ -48,25 +41,22 @@ class InputValue {
 
   /**
    * Check whether the input's value is a valid email address.
-   * @returns {Boolean}
    */
-  isValid() {
+  isValid(): boolean {
     return !!this._value.match(InputValue.EMAIL_REGEX);
   }
 
   /**
    * Get string value.
-   * @returns {String}
    */
-  toString() {
+  toString(): string {
     return this._value;
   }
 
   /**
    * Render the input value.
-   * @returns {HTMLElement}
    */
-  render() {
+  render(): HTMLElement {
     if (this.elem) return this.elem;
 
     // Create elem
@@ -80,7 +70,7 @@ class InputValue {
     button.classList.add('EmailsInput-button');
     button.textContent = 'x';
     elem.append(button);
-    button.addEventListener('click', this._removeCallback.bind(this));
+    button.addEventListener('click', this._removeCallback!.bind(this));
 
     return elem;
   }

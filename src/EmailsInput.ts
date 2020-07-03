@@ -1,50 +1,44 @@
 import InputValue from './InputValue';
+import { EmailsInputChangeListener, EmailsInputOpts, EmailsInputUserOpts  } from './types'
 
 class EmailsInput {
   /**
-   * Default options.
-   * @type {{placeholderText: string}}
+   * Element options.
    */
-  static defaultOpts = {
+  private readonly _opts: EmailsInputOpts = {
     placeholderText: 'add more people...',
   };
 
   /**
    * Input container HTML element.
-   * @type {HTMLElement}
-   * @private
    */
-  _elem = null;
+  private _elem: (HTMLElement | null) = null;
 
   /**
    * Subscribed listeners.
-   * @type {function[]}
-   * @private
    */
-  _listeners = [];
+  private _listeners: EmailsInputChangeListener[] = [];
 
   /**
    * Input values.
-   * @type {InputValue[]}
-   * @private
    */
-  _values = [];
+  private _values: InputValue[] = [];
 
   /**
    * Construct an emails input.
    * @param {HTMLElement} elem - HTML element to be bind the EmailsInput instance
    * to.
-   * @param {Object} opts - Options
-   * @param {Number} opts.placeholderText - Input placeholder text
+   * @param {EmailsInputOpts} opts - Options
+   * @param {string} opts.placeholderText - Input placeholder text
    */
-  constructor(elem, opts = {}) {
-    if (typeof elem !== 'object') {
+  constructor(elem: HTMLElement, opts: EmailsInputUserOpts = {}) {
+    if (!(elem instanceof HTMLElement)) {
       throw new Error("EmailsInput() expects a HTMLElement as argument");
     }
 
     this._elem = elem;
     this._opts = {
-      ...EmailsInput.defaultOpts,
+      ...this._opts,
       ...opts,
     };
 
@@ -53,36 +47,30 @@ class EmailsInput {
 
   /**
    * Return the string value representation of the values.
-   * @returns {String[]}
-   * @private
    */
-  get _stringValues() {
+  private get _stringValues(): string[] {
     return this._values.map(value => value.toString());
   }
 
   /**
    * Return reference to values container DOM element.
-   * @returns {HTMLElement}
-   * @private
    */
-  get _valuesElem() {
-    return this._elem.querySelector('.EmailsInput-values');
+  private get _valuesElem(): (HTMLElement | null) {
+    return this._elem!.querySelector('.EmailsInput-values');
   }
 
   /**
    * Return reference to input DOM element.
-   * @returns {HTMLElement}
-   * @private
    */
-  get _inputElem() {
-    return this._elem.querySelector('.EmailsInput-input');
+  private get _inputElem(): (HTMLElement | null) {
+    return this._elem!.querySelector('.EmailsInput-input');
   }
 
   /**
    * Add a value to the list of values.
    * @param {string} value - The value to be added.
    */
-  addValue(value) {
+  addValue(value: string): void {
     const self = this;
 
     // Create InputValue instance
@@ -92,7 +80,7 @@ class EmailsInput {
     this._values.push(instance);
 
     // Append value to values in DOM
-    this._valuesElem.insertBefore(
+    this._valuesElem!.insertBefore(
       instance.render(),
       this._inputElem
     );
@@ -102,17 +90,15 @@ class EmailsInput {
 
   /**
    * Get all values.
-   * @return {String[]}
    */
-  getAllValues() {
+  getAllValues(): string[] {
     return this._stringValues;
   }
 
   /**
    * Get valid values.
-   * @return {String[]}
    */
-  getValidValues() {
+  getValidValues(): string[] {
     return this._values
       .filter(val => val.isValid())
       .map(value => value.toString());
@@ -120,9 +106,9 @@ class EmailsInput {
 
   /**
    * Replace all current values by the given values.
-   * @param {String[]} values - The new values
+   * @param {string[]} values - The new values
    */
-  replaceAllValues(values) {
+  replaceAllValues(values: string[]): void {
     this._values.forEach(val => this.removeValue(val));
     values.forEach(val => this.addValue(val));
   }
@@ -130,11 +116,10 @@ class EmailsInput {
   /**
    * Remove a value by reference.
    * @param {InputValue} value - Reference to InputValue to be removed.
-   * @private
    */
-  removeValue(value) {
+  removeValue(value: InputValue): void {
     // Remove DOM element
-    value.elem.parentNode.removeChild(value.elem);
+    value.elem!.parentNode!.removeChild(value.elem!);
 
     this._values = this._values.filter(val => val !== value);
     this._notifyListeners();
@@ -142,26 +127,26 @@ class EmailsInput {
 
   /**
    * Subscribe to any changes to the values.
-   * @param {Function} listener - Listener function
+   * @param {EmailsInputChangeListener} listener - Listener function
    */
-  subscribe(listener) {
+  subscribe(listener: EmailsInputChangeListener): void {
     this._listeners.push(listener);
   }
 
   /**
    * Unsubscribe listener.
-   * @param {Function} listener - Listener function
+   * @param {EmailsInputChangeListener} listener - Listener function
    */
-  unsubscribe(listener) {
+  unsubscribe(listener: EmailsInputChangeListener): void {
     this._listeners = this._listeners.filter(func => func !== listener);
   }
 
   /**
    * (Re)initialize EmailsInput instance. Renders an empty form.
    */
-  init() {
-    this._elem.classList.add('EmailsInput');
-    this._elem.innerHTML = `<div class="EmailsInput-values"></div>`;
+  init(): void {
+    this._elem!.classList.add('EmailsInput');
+    this._elem!.innerHTML = `<div class="EmailsInput-values"></div>`;
     this._createInput();
   }
 
@@ -170,26 +155,24 @@ class EmailsInput {
    *
    * Unsubscribes listeners and clears values.
    */
-  reset() {
+  reset(): void {
     this._values = [];
     this._listeners = [];
     // Reset DOM elements
-    this._elem.innerHTML = `<div class="EmailsInput-values"></div>`;
+    this._elem!.innerHTML = `<div class="EmailsInput-values"></div>`;
   }
 
   /**
    * Notify all listeners with current values.
-   * @private
    */
-  _notifyListeners() {
+  private _notifyListeners(): void {
     this._listeners.forEach(listener => listener.call(this, this._stringValues));
   }
 
   /**
    * Create input element and attach listeners.
-   * @private
    */
-  _createInput() {
+  private _createInput(): void {
     // Create element
     const elem = document.createElement("input");
     elem.type = 'text';
@@ -215,8 +198,9 @@ class EmailsInput {
     });
 
     // Add comma-separated values when pasted
-    elem.addEventListener('paste', () => {
-      const text = (event.clipboardData || window.clipboardData)
+    elem.addEventListener('paste', e => {
+      if (!e.clipboardData) return;
+      const text = e.clipboardData
         .getData('text');
       text.split(',').map(val => this.addValue(val));
       // Clear value after the actual paste handler has copied in the text
@@ -224,11 +208,11 @@ class EmailsInput {
     });
 
     // Focus input when clicking on the container elem
-    this._elem.addEventListener('click', () => {
+    this._elem!.addEventListener('click', () => {
       elem.focus();
     });
 
-    this._valuesElem.append(elem);
+    this._valuesElem!.append(elem);
   }
 }
 

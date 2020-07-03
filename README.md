@@ -1,6 +1,6 @@
 # emails-input
 
-![Demo GIF](https://s7.gifyu.com/images/ezgif.com-video-to-gif95b5c03e5103ea17.gif)
+![Demo GIF](https://s7.gifyu.com/images/Screen-Recording-2020-07-03-at-14.57.40.gif)
 
 Customizeable VanillaJS email input library. Creates a token on blur, enter and comma and supports pasting comma separated values. Could be easily adapted to work for non-email values.
 
